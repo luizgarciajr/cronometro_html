@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cronômetro Simples</title>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="display">0.0s</div>
+    <button id="start">START</button>
+    <button id="pause">PAUSE</button>
+    <button id="reset">RESTART</button>
+    <button id="parcial">PARCIAL</button>
+    <div id="parcias"></div>
+
+  </body>
+</html>
+
+
+
+window.onload = init;
+var btnStart;
+var btnPause;
+var btnReset;
+var btnParcial;
+var tempo = 0;
+var id;
+
+function init(){
+  btnStart = document.getElementById("start");
+  btnStart.onclick = start;
+
+  btnPause = document.getElementById("pause");
+  btnPause.onclick = pause;
+
+  btnReset = document.getElementById("reset");
+  btnReset.onclick = marcaParcial;
+
+  btnParcial = document.getElementById("parcial");
+  btnParcial.onclick = restart;    
+
+  btnPause.disabled = true;
+  btnReset.disabled = true;
+}
+
+function restart(){
+  tempo = 0;
+  document.getElementById("display").innerHTML = tempo.toFixed(1) + "s";
+  btnReset.disabled = true;
+}
+
+function pause(){
+  clearInterval(id);
+  btnStart.disabled = false;
+  btnReset.disabled = false;
+  btnPause.disabled = true;
+}
+
+function start(){
+  id = setInterval( update , 100);
+  btnStart.disabled = true;
+  btnPause.disabled = false;
+  btnReset.disabled = true;
+}
+
+function update(){
+  tempo += 0.1;
+  document.getElementById("display").innerHTML = tempo.toFixed(1) + "s";
+}
